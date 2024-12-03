@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Add Hospital Form</title>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: Arial, sans-serif;
+			line-height: 1.6;
+			background-color: #f0f4f8;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			min-height: 100vh;
+			margin: 0;
+			padding: 20px;
+		}
+
+		.navbar {
+			background-color: #6bb5dd;
+			color: white;
+			padding: 15px 0;
+			width: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 1000;
+		}
+
+		.navbar .container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 90%;
+			margin: 0 auto;
+		}
+
+		.logo {
+			font-size: 24px;
+			font-weight: bold;
+			color: white;
+			text-decoration: none;
+		}
+
+		.nav-links {
+			list-style: none;
+			display: flex;
+		}
+
+		.nav-links li {
+			margin-left: 20px;
+		}
+
+		.nav-links a {
+			color: white;
+			text-decoration: none;
+			font-size: 16px;
+			transition: color 0.3s ease, background-color 0.3s ease;
+			padding: 5px 10px;
+			border-radius: 5px;
+		}
+
+		.nav-links a:hover {
+			background-color: white;
+			color: #007bff;
+		}
+
+		.logout-link {
+			color: white;
+			text-decoration: none;
+			font-size: 16px;
+		}
+
+		.logout-link:hover {
+			text-decoration: underline;
+		}
+
+		.form-container {
+			z-index: 10;
+			position: relative;
+			background-color: #fff;
+			padding: 10px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			width: 100%;
+			max-width: 600px;
+			margin-top: 100px;
+			transition: transform 0.3s, box-shadow 0.3s;
+		}
+
+		.form-container:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+		}
+
+		h1 {
+			text-align: left;
+			font-size: 32px;
+			font-weight: bold;
+			margin-bottom: 20px;
+			color: #306bc5;
+		}
+
+		label {
+			font-size: 16px;
+			font-weight: bold;
+			display: block;
+			margin-bottom: 5px;
+			color: #333;
+		}
+
+		input[type="text"],
+		input[type="email"],
+		input[type="password"],
+		input[type="date"] {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 15px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			font-size: 16px;
+		}
+
+		button {
+			padding: 8px 12px;
+			background-color: #007bff;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			margin-left: 10px;
+		}
+
+		button:hover {
+			background-color: #0056b3;
+		}
+
+		.back-button {
+			background-color: #6c757d;
+		}
+
+		.back-button:hover {
+			background-color: #5a6268;
+		}
+
+		.nav-links a.active {
+			background-color: white;
+			color: #6bb5dd;
+			font-weight: bold;
+			border-radius: 5px;
+		}
+
+		.error-message {
+			color: #ba0933;
+			margin-top: 5px;
+			font-size: 13px;
+			display: none;
+		}
+
+		@media (max-width: 768px) {
+			.navbar .container {
+				flex-direction: column;
+			}
+
+			.nav-links {
+				flex-direction: column;
+				align-items: center;
+				margin-top: 10px;
+			}
+
+			.nav-links li {
+				margin-left: 0;
+				margin-bottom: 10px;
+			}
+
+			.form-container {
+				padding: 15px;
+			}
+
+			h1 {
+				font-size: 28px;
+			}
+
+			input[type="text"],
+			input[type="email"],
+			input[type="password"],
+			input[type="date"] {
+				font-size: 14px;
+			}
+
+			button {
+				font-size: 14px;
+				padding: 6px 10px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav-links a {
+				font-size: 14px;
+				padding: 8px 12px;
+			}
+
+			.form-container {
+				width: 90%;
+			}
+
+			h1 {
+				font-size: 24px;
+			}
+
+			input[type="text"],
+			input[type="email"],
+			input[type="password"],
+			input[type="date"] {
+				font-size: 14px;
+			}
+
+			button {
+				font-size: 14px;
+				padding: 6px 8px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<nav class="navbar">
+		<div class="container">
+			<a href="#" class="logo">Medical Tourism</a>
+			<ul class="nav-links">
+				<li><a href="/home">Home</a></li>
+				<li><a href="/users">Users</a></li>
+				<li><a href="/hospital">Hospital</a></li>
+				<li><a href="/patient">Patient</a></li>
+				<li><a href="/addDoctor">Add Doctor</a></li>
+			</ul>
+			<a href="Logout" class="logout-link">Logout</a>
+		</div>
+	</nav>
+
+	<div class="form-container">
+		<h1>Add Hospital</h1>
+
+		<form id="addHospitalForm">
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" placeholder="Enter hospital name" required>
+			<p id="name-error" class="error-message">Please enter the hospital name.</p>
+
+			<label for="address">Address:</label>
+			<input type="text" id="address" name="address" placeholder="Enter address" required>
+			<p id="address-error" class="error-message">Please enter the hospital address.</p>
+
+			<label for="city">City:</label>
+			<input type="text" id="city" name="city" placeholder="Enter city" required>
+			<p id="city-error" class="error-message">Please enter the city.</p>
+
+			<label for="pincode">Pincode:</label>
+			<input type="text" id="pincode" name="pincode" placeholder="Enter pincode" required>
+			<p id="pincode-error" class="error-message">Please enter a valid 6-digit pincode.</p>
+
+			<label for="contact">Contact:</label>
+			<input type="text" id="contact" name="contact" placeholder="Enter contact number" required>
+			<p id="contact-error" class="error-message">Please enter a valid contact number.</p>
+
+			<label for="email">Email:</label>
+			<input type="email" id="email" name="email" placeholder="Enter email" required>
+			<p id="email-error" class="error-message">Please enter a valid email address.</p>
+
+			<label for="username">Username :</label>
+			<input type="text" id="username" name="username" placeholder="Enter username" required>
+			<p id="username-error" class="error-message">Username must be at least 8 characters long and contain only
+				letters.</p>
+
+			<label for="password">Password:</label>
+			<input type="text" id="password" name="password" placeholder="Enter password" required>
+			<p id="password-error" class="error-message">Password must be at least 8 characters long, with one uppercase
+				letter and one special character.</p>
+
+			<label for="establishedYear">Established Year:</label>
+			<input type="date" id="establishedYear" name="establishedYear" required>
+			<p id="establishedYear-error" class="error-message">Established year cannot be in the future.</p>
+
+			<div style="display: flex; justify-content: flex-end;">
+				<button type="button" class="back-button" onclick="window.history.back()">Back</button>
+				<button type="submit">Add Hospital</button>
+			</div>
+		</form>
+
+
+		<div id="successMessage" class="success"></div>
+		<div id="errorMessage" class="error"></div>
+	</div>
+
+	<script>
+
+		document.getElementById('addHospitalForm').addEventListener('submit', function (event) {
+			event.preventDefault();
+
+			// Clear previous error messages
+			document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+			document.getElementById('successMessage').style.display = 'none';
+			document.getElementById('errorMessage').style.display = 'none';
+
+			// Hide success message
+
+			// Validate fields
+			let isValid = true;
+
+			// Name Validation
+			const name = document.getElementById('name').value.trim();
+			if (!name) {
+				document.getElementById('name-error').style.display = 'block';
+				isValid = false;
+			}
+
+			// Address Validation
+			const address = document.getElementById('address').value.trim();
+			if (!address) {
+				document.getElementById('address-error').style.display = 'block';
+				isValid = false;
+			}
+
+			// City Validation
+			const city = document.getElementById('city').value.trim();
+			if (!city) {
+				document.getElementById('city-error').style.display = 'block';
+				isValid = false;
+			}
+
+			// Pincode Validation
+			const pincode = document.getElementById('pincode').value;
+			const pincodeRegex = /^[1-9][0-9]{5}$/;
+			if (!pincodeRegex.test(pincode)) {
+				document.getElementById('pincode-error').style.display = 'block';
+				isValid = false;
+			}
+
+			// Contact Validation
+			const contact = document.getElementById('contact').value;
+			const contactRegex = /^[6-9][0-9]{9}$/;
+			if (!contactRegex.test(contact)) {
+				document.getElementById('contact-error').style.display = 'block';
+				isValid = false;
+			}
+
+			// Email Validation
+			const email = document.getElementById('email').value;
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				document.getElementById('email-error').style.display = 'block';
+				isValid = false;
+			}
+
+			// Username Validation
+			const username = document.getElementById('username').value;
+			const usernameRegex = /^[a-zA-Z]+$/;
+			if (!usernameRegex.test(username) || username.length < 8) {
+				document.getElementById('username-error').style.display = 'block';
+				isValid = false;
+			}
+
+			// Password Validation
+			const password = document.getElementById('password').value;
+			const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\S+$).{8,}$/;
+			if (!passwordRegex.test(password)) {
+				document.getElementById('password-error').style.display = 'block';
+				isValid = false;
+			}
+
+			// Established Year Validation
+			const establishedYear = new Date(document.getElementById('establishedYear').value);
+			const currentYear = new Date().getFullYear();
+			if (establishedYear.getFullYear() > currentYear) {
+				document.getElementById('establishedYear-error').style.display = 'block';
+				isValid = false;
+			}
+
+			// If all validations pass, submit the form
+			if (isValid) {
+				const formData = {
+					name,
+					address,
+					city,
+					pincode,
+					contact,
+					email,
+					username,
+					password,
+					establishedYear: establishedYear.toISOString().split('T')[0]
+				};
+
+				fetch('/createHospital', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify(formData)
+				})
+					.then(response => {
+						if (!response.ok) {
+							return response.text().then(errorMessage => {
+								throw new Error(errorMessage);
+							});
+						}
+						return response.json();
+					})
+					.then(data => {
+						document.getElementById('successMessage').textContent = 'Hospital added successfully!';
+						document.getElementById('successMessage').style.display = 'block';
+						document.getElementById('addHospitalForm').reset();
+					})
+					.catch(error => {
+						document.getElementById('errorMessage').textContent = error.message;
+						document.getElementById('errorMessage').style.display = 'block';
+					});
+
+			}
+		});
+
+	</script>
+
+</body>
+
+</html>

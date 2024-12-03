@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Patients List</title>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+	<div class="container">
+		<header class="header">
+			<div class="logo">
+				<span class="logo-icon">+</span>
+				<span>Medical Tourism</span>
+			</div>
+			<nav class="navbar">
+				<ul>
+					<li><a href="/home">Home</a></li>
+					<li><a href="/users">Users</a></li>
+					<li><a href="/hospital">Hospital</a></li>
+					<li><a href="/patient">Patient</a></li>
+					<li><a href="/addHospital">Add Hospital</a></li>
+					<li><a href="/addDoctor">Add Doctor</a></li>
+				</ul>
+			</nav>
+			<div class="logout">
+				<a href="index.html">Log out</a>
+			</div>
+		</header>
+
+		<h2>Patients List</h2>
+
+		<div class="search-bar">
+			<input type="text" id="searchInput" placeholder="Search for patients...">
+			<button onclick="searchPatients()">Search</button>
+		</div>
+
+		<table id="patientsTable">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Treatment Date</th>
+					<th>Surgery</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Country</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody id="patientsBody">
+				<!-- Patient data will be populated here -->
+			</tbody>
+		</table>
+	</div>
+
+	<script>
+
+		function formatDate(dateString) {
+			const date = new Date(dateString);
+			const options = {month: 'long', year: 'numeric'};
+			const formattedDate = date.toLocaleDateString('en-US', options);
+			const day = String(date.getDate()).padStart(2, '0');
+			return `${day} ${formattedDate}`;
+		}
+		async function fetchPatients(searchTerm = '') {
+			try {
+				const response = await fetch(`/patient/search/${searchTerm}`);
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				const patients = await response.json();
+				populateTable(patients);
+			} catch (error) {
+				console.error('Error fetching patients:', error);
+				alert('Failed to fetch patient data. Please try again later.');
+			}
+		}
+
+		function populateTable(patients) {
+			const patientsBody = document.getElementById('patientsBody');
+			patientsBody.innerHTML = ''; // Clear existing rows
+
+			if (patients.length === 0) {
+				patientsBody.innerHTML = '<tr><td colspan="8">No patients found.</td></tr>';
+				return;
+			}
+
+			patients.forEach(patient => {
+				const row = document.createElement('tr');
+				const formattedDate = formatDate(patient.preferredTreatmentDate); // Format the date
+
+				row.innerHTML = `
+            <td>${patient.id}</td>
+            <td>${patient.name}</td>
+            <td>${formattedDate}</td>  <!-- Insert the formatted date here -->
+            <td>${patient.surgery}</td>
+            <td>${patient.city}</td>
+            <td>${patient.state}</td>
+            <td>${patient.country}</td>
+            <td><button class="getAllDetailsButton" onclick="goToPatientDetails(${patient.id})">Get All Details</button></td>
+        `;
+				patientsBody.appendChild(row);
+			});
+		}
+
+
+		function searchPatients() {
+			const input = document.getElementById("searchInput").value;
+			fetchPatients(input);
+		}
+		function goToPatientDetails(id) {
+			window.location.href = `/patient/details/${id}`;
+		}
+
+
+	</script>
+</body>
+
+</html>

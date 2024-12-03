@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Patient Details</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f4f4f4;
+		}
+
+		.container {
+			width: 80%;
+			margin: auto;
+			padding: 20px;
+			background-color: white;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin-top: 50px;
+		}
+
+		.header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.header h1 {
+			font-size: 24px;
+		}
+
+		.logout-btn {
+			background-color: #007bff;
+			color: white;
+			border: none;
+			padding: 10px 15px;
+			cursor: pointer;
+			font-size: 16px;
+			border-radius: 5px;
+			transition: background-color 0.3s ease;
+		}
+
+		.logout-btn:hover {
+			background-color: #0056b3;
+		}
+
+		.profile-info {
+			display: flex;
+			align-items: center;
+			margin-top: 20px;
+		}
+
+		.profile-info img {
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+			border: 2px solid #007bff;
+			object-fit: cover;
+			margin-right: 20px;
+		}
+
+		.user-details {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			gap: 15px;
+			margin-top: 20px;
+		}
+
+		.user-details div {
+			margin-bottom: 10px;
+		}
+
+		.bold-text {
+			font-weight: bold;
+		}
+
+		.treatment-section {
+			margin-top: 40px;
+		}
+
+		.treatment-title {
+			font-size: 22px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.treatment-description {
+			font-size: 16px;
+			color: #555;
+			margin-bottom: 20px;
+		}
+
+		.document-section h3 {
+			margin-top: 20px;
+			font-size: 20px;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+
+		th,
+		td {
+			padding: 10px;
+			border: 1px solid #ddd;
+			text-align: left;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+
+		.upload-section {
+			margin-top: 20px;
+			border: 1px solid #ddd;
+			padding: 15px;
+			border-radius: 5px;
+			background-color: #f9f9f9;
+		}
+
+		.upload-section input[type="file"] {
+			margin-bottom: 10px;
+		}
+
+		.blue-btn {
+			background-color: #007bff;
+			color: white;
+			border: none;
+			padding: 10px 15px;
+			cursor: pointer;
+			font-size: 14px;
+			border-radius: 5px;
+			transition: background-color 0.3s ease;
+		}
+
+		.blue-btn:hover {
+			background-color: #0056b3;
+		}
+
+		.red-btn {
+			background-color: #ff4d4d;
+			color: white;
+			border: none;
+			padding: 10px 15px;
+			cursor: pointer;
+			font-size: 14px;
+			border-radius: 5px;
+		}
+
+		.red-btn:hover {
+			background-color: #e60000;
+		}
+
+		.button {
+			background-color: #007bff;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			font-size: 16px;
+			cursor: pointer;
+			border-radius: 4px;
+			display: block;
+			margin: 20px auto;
+		}
+
+		.button:hover {
+			background-color: #0056b3;
+		}
+
+		.centered-semicolon {
+			text-align: center;
+		}
+
+
+		@media (max-width: 768px) {
+			.container {
+				width: 95%;
+				margin-top: 20px;
+			}
+
+			.user-details {
+				grid-template-columns: 1fr;
+				gap: 10px;
+			}
+
+			.profile-info {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			.profile-info img {
+				margin-bottom: 10px;
+			}
+
+			.header h1 {
+				font-size: 20px;
+			}
+
+			.logout-btn {
+				padding: 8px 12px;
+				font-size: 14px;
+			}
+
+			.treatment-title {
+				font-size: 20px;
+			}
+
+			.treatment-description {
+				font-size: 14px;
+			}
+
+			table {
+				font-size: 14px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.profile-info img {
+				width: 60px;
+				height: 60px;
+			}
+
+			.header h1 {
+				font-size: 18px;
+			}
+
+			.logout-btn {
+				padding: 6px 10px;
+				font-size: 12px;
+			}
+
+			.user-details {
+				grid-template-columns: 1fr;
+			}
+
+			.bold-text {
+				font-size: 14px;
+			}
+
+			.treatment-title {
+				font-size: 18px;
+			}
+
+			.treatment-description {
+				font-size: 12px;
+			}
+
+			.blue-btn,
+			.red-btn {
+				padding: 8px 12px;
+				font-size: 12px;
+			}
+
+			.button {
+				padding: 8px 16px;
+				font-size: 14px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="header">
+			<h1>Medical Tourism</h1>
+			<button class="logout-btn" onclick="window.location.href='/logout'">Log out</button>
+		</div>
+
+		<div class="profile-info">
+			<img src="/images/Profile_Pic.png" alt="Profile Image">
+			<div style="flex-grow: 1;">
+				<div class="user-details">
+					<div style="text-align: left;">
+						<strong class="bold-text">Patient Name:</strong> <span id="patientName">Patient Name</span><br>
+						<strong>Patient ID:</strong> <span id="patientId">Patient ID</span>
+					</div>
+					<div style="text-align: left;">
+						<strong class="bold-text">Preferred Treatment Date:</strong> <span
+							id="preferredTreatmentDate">Date</span><br>
+						<strong class="bold-text">Assigned Doctor:</strong> <span id="assignedDoctor">Assigned
+							Doctor</span><br>
+					</div>
+					<div style="text-align: left;">
+						<strong>Gender:</strong> <span id="gender">Gender</span><br>
+						<strong class="bold-text">Age:</strong> <span id="age">Age</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="treatment-section">
+			<h2 class="treatment-title" id="surgery"> Treatment details</h2>
+			<p class="treatment-description">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+				dolore magna aliqua.
+			</p>
+			<strong>Medical History:</strong> <span id="medicalHistory">Medical History</span>
+		</div>
+
+		<div class="document-section">
+			<h3>Documents</h3>
+			<table>
+				<thead>
+					<tr>
+						<th>Document Name</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>DocumentName</td>
+						<td>
+							<button class="blue-btn">View</button>
+							<form action="/patient/delete" method="post" style="display: inline; margin-left:30px">
+								<input type="hidden" name="documentId" value="1">
+								<input type="hidden" name="patientId" value="1">
+								<button type="submit" class="red-btn">Delete</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="upload-section">
+				<h3>Upload Document</h3>
+				<form action="/document/upload" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="patientId" id="patientId">
+					<label for="file">Choose a file to upload:</label>
+					<input type="file" id="file" name="file" required>
+					<button type="submit" class="blue-btn">Upload</button>
+				</form>
+			</div>
+		</div>
+
+		<button class="button" onclick="redirectToUsers()">Back</button>
+	</div>
+
+	<script>
+		function formatDate(dateString) {
+			const date = new Date(dateString);
+			const options = {month: 'long', year: 'numeric'};
+			const formattedDate = date.toLocaleDateString('en-US', options);
+			const day = String(date.getDate()).padStart(2, '0');
+			return `${day} ${formattedDate}`;
+		}
+
+		const patientId = window.location.pathname.split('/').pop();
+
+		fetch(`/patient/${patientId}`)
+			.then(response => response.json())
+			.then(patient => {
+				document.getElementById('patientId').innerText = patient.id;
+				document.getElementById('patientName').innerText = patient.name;
+				document.getElementById('medicalHistory').innerText = patient.medicalHistory;
+				document.getElementById('preferredTreatmentDate').innerText = formatDate(patient.preferredTreatmentDate);
+				document.getElementById('surgery').innerText = patient.surgery;
+				document.getElementById('assignedDoctor').innerText = patient.assignedDoctor;
+				document.getElementById('gender').innerText = patient.gender;
+				document.getElementById('age').innerText = patient.age;
+			})
+			.catch(error => console.error('Error:', error));
+
+		function redirectToUsers() {
+			const patientId = document.getElementById('patientId').innerText;
+			const idAsNumber = parseInt(patientId, 10);
+
+			if (isNaN(idAsNumber)) {
+				console.error('Patient ID is not a valid number:', patientId);
+				return; // Prevent redirect if ID is invalid
+			}
+
+			// Redirect to users with the ID
+			window.location.href = `/userspage?patientId=${idAsNumber}`;
+		}
+
+
+
+	</script>
+
+</body>
+
+</html>

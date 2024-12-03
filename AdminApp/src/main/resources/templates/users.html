@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Users List</title>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f0f0f0;
+			margin: 0;
+		}
+
+		.navbar {
+			background-color: #6bb5dd;
+			color: white;
+			padding: 15px 0;
+			position: relative;
+		}
+
+		.navbar .container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 90%;
+			margin: 0 auto;
+		}
+
+		.logo {
+			font-size: 24px;
+			font-weight: bold;
+			color: white;
+			text-decoration: none;
+		}
+
+		.nav-links {
+			list-style: none;
+			display: flex;
+		}
+
+		.nav-links li {
+			margin-left: 20px;
+		}
+
+		.nav-links a {
+			color: white;
+			text-decoration: none;
+			font-size: 16px;
+			transition: color 0.3s ease, background-color 0.3s ease;
+			padding: 5px 10px;
+			border-radius: 5px;
+		}
+
+		.nav-links a:hover {
+			background-color: white;
+			color: #007bff;
+		}
+
+		.logout-link {
+			color: white;
+			text-decoration: none;
+			font-size: 16px;
+		}
+
+		.logout-link:hover {
+			text-decoration: underline;
+		}
+
+		.menu-toggle {
+			display: none;
+			font-size: 24px;
+			cursor: pointer;
+			color: white;
+		}
+
+		.content {
+			margin: 20px auto;
+			padding: 10px;
+			border-radius: 10px;
+		}
+
+		.search-bar {
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		.search-bar input[type="text"] {
+			width: 40%;
+			padding: 10px;
+			font-size: 16px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		}
+
+		.search-bar button {
+			padding: 10px 20px;
+			font-size: 16px;
+			background-color: #6bb5dd;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-left: 10px;
+		}
+
+		.search-bar button:hover {
+			background-color: #0056b3;
+		}
+
+		.user-details-btn {
+			padding: 10px 20px;
+			font-size: 16px;
+			background-color: #5fa2cc;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-left: 10px;
+		}
+
+		.user-details-btn:hover {
+			background-color: #0056b3;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		th,
+		td {
+			padding: 12px;
+			text-align: left;
+			border: 1px solid #ddd;
+		}
+
+		table .action-button {
+			padding: 8px 12px;
+			background-color: #6bb5dd;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			text-decoration: none;
+		}
+
+		table .action-button:hover {
+			background-color: #0056b3;
+		}
+
+		th {
+			background-color: #6bb5dd;
+			color: white;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+
+		.nav-links a.active {
+			background-color: white;
+			color: #6bb5dd;
+			font-weight: bold;
+			border-radius: 5px;
+		}
+
+		/* Responsive design */
+		@media (max-width: 768px) {
+			.nav-links {
+				display: none;
+				flex-direction: column;
+				align-items: center;
+				width: 100%;
+				background-color: #6bb5dd;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				padding: 15px 0;
+			}
+
+			.nav-links.show {
+				display: flex;
+				gap: 20px;
+			}
+
+			.menu-toggle {
+				display: block;
+
+				margin-left: 200px;
+			}
+
+			.search-bar input[type="text"] {
+				width: 80%;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<nav class="navbar">
+		<div class="container">
+			<a href="#" class="logo">Medical Tourism</a>
+			<ul class="nav-links">
+				<li><a href="/home">Home</a></li>
+				<li><a href="/users">Users</a></li>
+				<li><a href="/hospital">Hospital</a></li>
+				<li><a href="/patient">Patient</a></li>
+				<li><a href="/addDoctor">Add Doctor</a></li>
+			</ul>
+			<a href="logout.html" class="logout-link">Logout</a>
+		</div>
+	</nav>
+
+	<div class="content">
+
+
+		<div class="error-banner" id="errorBanner"></div> <!-- Error banner added here -->
+
+		<div class="search-bar">
+			<input type="text" id="searchInput" placeholder="Search for Users...">
+			<button onclick="handleSearch()">Search</button>
+			<a href="add-user.html"></a>
+			<button class="user-details-btn" onclick="window.location.href='/addUser'">Add User</button>
+
+		</div>
+
+		<table id="usersTable">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Treatment Date</th>
+					<th>Surgery</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Country</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody id="usersBody"></tbody>
+		</table>
+	</div>
+
+	<script>
+		function handleSearch() {
+			const searchTerm = document.getElementById('searchInput').value.trim(); // Fix ID from 'searchTerm' to 'searchInput'
+			const errorBanner = document.getElementById('errorBanner');
+			const usersBody = document.getElementById('usersBody'); // Fix table body ID from 'resultsBody' to 'usersBody'
+
+			// Clear previous error message and content
+			if (errorBanner) {
+				errorBanner.style.display = 'none';
+				errorBanner.innerText = ''; // Clear any previous error message
+			}
+
+			usersBody.innerHTML = ''; // Clear previous results
+
+			if (!searchTerm) {
+				// Show error banner if no input is given
+				if (errorBanner) {
+					errorBanner.innerText = 'Please enter a User ID or Name to search.';
+					errorBanner.style.display = 'block'; // Set to block to make it visible
+				}
+				return;
+			}
+
+			// Perform search (replace the URL with your actual API endpoint)
+			fetch(`/api/users?search=${encodeURIComponent(searchTerm)}`)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(`No User results found for "${searchTerm}".`);
+					}
+					return response.json();
+				})
+				.then(data => {
+					// Check if no users are found
+					if (data.length === 0) {
+						if (errorBanner) {
+							errorBanner.innerText = `No User results found for "${searchTerm}".`;
+							errorBanner.style.display = 'block';
+						}
+						return;
+					}
+
+					// Populate results table
+					data.forEach(user => {
+						const row = document.createElement('tr');
+						row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.preferredTreatmentDate}</td>
+                        <td>${user.currentMedication}</td>
+                        <td>${user.city}</td>
+                        <td>${user.state}</td>
+                        <td>${user.country}</td>
+                        <td><button class="action-button" onclick="goToUserDetails(${user.id})">Get Details</button></td>
+                    `;
+						usersBody.appendChild(row);
+					});
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					if (errorBanner) {
+						errorBanner.innerText = ` ${error.message}`;
+						errorBanner.style.display = 'block';
+					}
+				});
+		}
+
+		function goToUserDetails(id) {
+			// Redirect to a patient details page (replace the URL with your actual page)
+			window.location.href = `/user/details/${id}`;
+		}
+
+		// Set active link for the current page
+		document.querySelectorAll('.nav-links a').forEach(link => {
+			if (link.href === window.location.href) {
+				link.classList.add('active');
+			}
+		});
+	</script>
+
+</body>
+
+</html>

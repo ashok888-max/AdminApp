@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Page</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: Arial, sans-serif;
+		}
+
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			background: url(/images/background.jpg) no-repeat center center / cover;
+			padding: 20px;
+		}
+
+		.login-container {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			width: 100%;
+			max-width: 400px;
+			text-align: center;
+		}
+
+		h2 {
+			margin-bottom: 20px;
+			color: #080808;
+		}
+
+		.input-group {
+			margin-bottom: 15px;
+			position: relative;
+		}
+
+		label {
+			font-weight: bold;
+			text-align: left;
+			display: block;
+			margin-bottom: 5px;
+			color: #0b0b0b;
+		}
+
+		input[type="password"],
+		input[type="text"] {
+			width: 100%;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			height: 40px;
+		}
+
+		.toggle-password {
+			position: absolute;
+			right: 10px;
+			top: 65%;
+			transform: translateY(-50%);
+			cursor: pointer;
+			font-size: 18px;
+			color: #888;
+		}
+
+		.toggle-password:hover {
+			color: #333;
+		}
+
+		button {
+			width: 50%;
+			padding: 10px;
+			background-color: #007bff;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+			margin-top: 10px;
+		}
+
+		button:hover {
+			background-color: #0056b3;
+		}
+
+		.error-message {
+			color: #ba0933;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			font-weight: bold;
+			font-size: 13px;
+			display: none;
+			text-align: left;
+		}
+
+		@media (max-width: 600px) {
+			.login-container {
+				padding: 15px;
+				width: 100%;
+			}
+
+			input[type="password"],
+			input[type="text"] {
+				font-size: 14px;
+			}
+
+			button {
+				font-size: 14px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="login-container">
+		<h2>Log In</h2>
+		<form id="loginForm" action="/perform_login" method="post">
+			<div class="input-group">
+				<label for="identifier">AdminId/EmailId</label>
+				<input type="text" id="identifier" name="identifier" placeholder="Enter your username or email"
+					required>
+				<p id="identifier-invalid-error" class="error-message">Enter a valid AdminId/EmailId</p>
+			</div>
+			<div class="input-group password-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" placeholder="Enter your password" required>
+				<span id="togglePassword" class="toggle-password">&#128065;</span>
+			</div>
+			<div>
+				<p id="password-invalid-error" class="error-message">Enter a valid password</p>
+			</div>
+
+			<!-- Error Message Display -->
+			<div style="color: #ba0933; font-weight: bold; font-size: 16px;">
+				<p th:text="${error}">Invalid adminId/email or password</p>
+			</div>
+
+			<button type="submit">Login</button>
+		</form>
+	</div>
+
+	<script>
+		const togglePassword = document.getElementById('togglePassword');
+		const passwordField = document.getElementById('password');
+
+		togglePassword.addEventListener('click', function () {
+			const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+			passwordField.setAttribute('type', type);
+			this.textContent = type === 'password' ? '👁' : '👁';
+		});
+
+		document.getElementById('loginForm').addEventListener('submit', function (event) {
+			let valid = true;
+
+			// Validation functions
+			function validateIdentifier(identifier) {
+				const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+				const adminIdPattern = /^[A-Za-z0-9]{9,}$/;
+				return emailPattern.test(identifier.toLowerCase()) || adminIdPattern.test(identifier);
+			}
+
+			function validatePassword(password) {
+				const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+				return re.test(password);
+			}
+
+			// Identifier Validation
+			const identifierField = document.getElementById('identifier');
+			if (!validateIdentifier(identifierField.value)) {
+				document.getElementById('identifier-invalid-error').style.display = 'block';
+				valid = false;
+			} else {
+				document.getElementById('identifier-invalid-error').style.display = 'none';
+			}
+
+			// Password Validation
+			if (!validatePassword(passwordField.value)) {
+				document.getElementById('password-invalid-error').style.display = 'block';
+				valid = false;
+			} else {
+				document.getElementById('password-invalid-error').style.display = 'none';
+			}
+
+			// Prevent submission if not valid
+			if (!valid) {
+				event.preventDefault();
+			}
+		});
+	</script>
+</body>
+
+</html>

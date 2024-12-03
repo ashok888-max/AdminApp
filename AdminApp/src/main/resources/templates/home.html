@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Medical Tourism</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: Arial, sans-serif;
+			line-height: 1.6;
+			background-color: #f4f4f4;
+		}
+
+		.navbar {
+			background-color: #6bb5dd;
+			color: white;
+			padding: 15px 0;
+		}
+
+		.navbar .container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 90%;
+			margin: 0 auto;
+		}
+
+		.logo {
+			font-size: 24px;
+			font-weight: bold;
+			color: white;
+			text-decoration: none;
+		}
+
+		.nav-links {
+			list-style: none;
+			display: flex;
+		}
+
+		.nav-links li {
+			margin-left: 20px;
+		}
+
+		.nav-links a {
+			color: white;
+			text-decoration: none;
+			font-size: 16px;
+			transition: color 0.3s ease, background-color 0.3s ease;
+			padding: 5px 10px;
+			border-radius: 5px;
+		}
+
+		.nav-links a:hover {
+			background-color: white;
+			color: #007bff;
+		}
+
+		.nav-links a.active {
+			background-color: white;
+			color: #007bff;
+		}
+
+		.logout-btn {
+			padding: 10px 15px;
+			font-size: 16px;
+			background-color: #007bff;
+			color: white;
+			border: none;
+			cursor: pointer;
+			border-radius: 5px;
+			transition: background-color 0.3s ease;
+		}
+
+		.logout-btn:hover {
+			background-color: #0056b3;
+		}
+
+		.hero-section {
+			background-color: #e9ecef;
+			padding: 50px 0;
+			text-align: center;
+		}
+
+		.hero-section h1 {
+			font-size: 36px;
+			color: #333;
+		}
+
+		.hero-section p {
+			font-size: 18px;
+			color: #666;
+			margin-top: 10px;
+		}
+
+		.content-section {
+			padding: 30px 0;
+			text-align: center;
+		}
+
+		.content-section h2 {
+			font-size: 28px;
+			color: #333;
+			margin-bottom: 20px;
+		}
+
+		.container {
+			width: 90%;
+			margin: 0 auto;
+		}
+
+		.image-section {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.image-section img {
+			max-width: 100%;
+			height: 300px;
+			border-radius: 8px;
+			object-fit: cover;
+		}
+
+		.top-destinations-section {
+			text-align: center;
+			margin-top: 30px;
+		}
+
+		.top-destinations-section h3 {
+			font-size: 30px;
+			color: #333;
+			margin-bottom: 10px;
+		}
+
+		.destinations-section {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			margin-top: 20px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.destination-item {
+			font-size: 20px;
+			font-weight: bold;
+			color: #f45607;
+		}
+
+
+		.nav-links a.active {
+			background-color: white;
+			color: #007bff;
+			font-weight: bold;
+			border-radius: 5px;
+		}
+
+		@media (max-width: 768px) {
+			.navbar .container {
+				flex-direction: column;
+			}
+
+			.nav-links {
+				flex-direction: column;
+				align-items: center;
+				margin-top: 10px;
+			}
+
+			.nav-links li {
+				margin-left: 0;
+				margin-bottom: 10px;
+			}
+
+			.hero-section h1 {
+				font-size: 28px;
+			}
+
+			.hero-section p {
+				font-size: 16px;
+			}
+
+			.content-section h2 {
+				font-size: 24px;
+			}
+
+			.destinations-section {
+				flex-direction: column;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav-links a {
+				font-size: 14px;
+				padding: 8px 12px;
+			}
+
+			.hero-section h1 {
+				font-size: 24px;
+			}
+
+			.hero-section p {
+				font-size: 14px;
+			}
+
+			.content-section h2 {
+				font-size: 20px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar">
+		<div class="container">
+			<a href="#" class="logo">Medical Tourism</a>
+			<ul class="nav-links">
+				<li><a href="/home">Home</a></li>
+				<li><a href="/users">Users</a></li>
+				<li><a href="/hospital">Hospital</a></li>
+				<li><a href="/patient">Patient</a></li>
+				<li><a href="/addDoctor">Add Doctor</a></li>
+			</ul>
+			<button onclick="window.location.href='/logout'" class="logout-btn">Logout</button>
+		</div>
+	</nav>
+
+	<header class="hero-section">
+		<div class="container">
+			<h1>Medical Tourism</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+				dolore magna aliqua.</p>
+		</div>
+	</header>
+
+	<section class="content-section">
+		<div class="container">
+			<h2>We Have Professional Doctors and Hospital</h2>
+			<h2>We Promise to Take Care of Your Health Carefully</h2>
+		</div>
+	</section>
+
+	<div class="image-section">
+		<img th:src="@{/images/medical.jpg}" alt="Medical Tourism">
+
+	</div>
+
+	<div class="top-destinations-section">
+		<h3>Top Destinations in India</h3>
+		<div class="destinations-section">
+			<div class="destination-item">Chennai</div>
+			<div class="destination-item">Mumbai</div>
+			<div class="destination-item">Bangalore</div>
+			<div class="destination-item">New Delhi</div>
+			<div class="destination-item">Ahmedabad</div>
+		</div>
+	</div>
+
+	<script>
+		document.querySelectorAll('.nav-links a').forEach(link => {
+			if (link.href === window.location.href) {
+				link.classList.add('active');
+			}
+		});
+	</script>
+</body>
+
+
+
+</html>
